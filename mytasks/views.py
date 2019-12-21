@@ -7,7 +7,19 @@ def task_view(request):
     all_tasks = Task.objects.all() 
     return render(request,'tasks.html', {'tasks':all_tasks})
 
-def new_task(request):
-    new_task = Task(title=request.POST['title'])
-    new_task.save()
-    return HttpResponseRedirect('/')
+
+def process_task(request):
+    cmd = request.POST['cmd']
+
+    if cmd == "new_task":
+        new_task = Task(title=request.POST['title'])
+        new_task.save()
+        return HttpResponseRedirect('/')
+
+    if cmd == "status":
+        task = Task(pk=request.POST['task_id'])
+        task.status = not task.status
+        task.save()
+        return HttpResponseRedirect('/')
+
+    # if cmd == "delete":

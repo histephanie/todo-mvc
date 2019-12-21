@@ -4,14 +4,18 @@
 <section class="todoapp">
 	<header class="header">
 		<h1>todos</h1> 
-		<form action="/new-task" method="POST">{% csrf_token %}
+		<form action="/process-task" method="POST">{% csrf_token %}
+			<input type="hidden" name="cmd" value="new_task">
 			<input autofocus="autofocus" autocomplete="off" placeholder="What needs to be done?" 
 			class="new-todo" name="title">
 		</form> 
 	</header> 
 	<section class="main" style="">
-		<input id="toggle-all" type="checkbox" class="toggle-all"> 
+	<form action="/process-task" method="POST">{% csrf_token %}
+		<input type="hidden" name="cmd" value="status">
+		<input id="toggle-all" type="submit" class="toggle-all" name="task_id"> 
 		<label for="toggle-all">Mark all as complete</label>
+	</form>
 		<ul class="todo-list">
 			{% for task in tasks %}
 			<li class="todo">

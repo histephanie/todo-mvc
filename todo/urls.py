@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from mytasks.views import task_view, new_task
+from mytasks.views import task_view, process_task
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', task_view, name='tasks'),
-    path('new-task', new_task)
+    path('process-task', process_task, name='process_task')
 ]
