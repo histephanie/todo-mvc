@@ -22,4 +22,16 @@ def process_task(request):
         task.save()
         return HttpResponseRedirect('/')
 
-    # if cmd == "delete":
+    if cmd == "toggle_all":
+        all_tasks = Task.objects.all() 
+        for task in all_tasks:
+            task.status = not task.status
+            task.save()
+        return HttpResponseRedirect('/')
+
+    if cmd == "delete":
+        print("DELETE")
+        task = Task(pk=request.POST['task_id'])
+        print("DELETE")
+        task.delete()
+        return HttpResponseRedirect('/')
