@@ -20,8 +20,13 @@
 			{% for task in tasks %}
 			<li class="todo {% if task.status %}completed{% endif %}">
 				<div class="view">
-					<input type="checkbox" class="toggle" {% if task.status %}checked{% endif %}> 
+				<form action="/process-task" method="POST">{% csrf_token %}
+					<input type="hidden" name="task_id" value="{{ task.id }}">
+					<input type="hidden" name="cmd" value="check">
+					<button id="check" class="toggle" type="submit"></button>
 					<label>{{ task.title }}</label> 
+					
+				</form>
 					<form action="/process-task" method="POST">{% csrf_token %}
 						<input type="hidden" name="task_id" value="{{ task.id }}">
 						<input type="hidden" name="cmd" value="delete">
@@ -37,9 +42,19 @@
 	<footer class="footer" style="">
 		<span class="todo-count">
 		<strong>2</strong> items left
-				</span> <ul class="filters"><li><a href="#/all" class="selected">All</a></li> <li><a href="#/active" class="">Active</a></li> <li><a href="#/completed" class="">Completed</a></li></ul> <button class="clear-completed" style="">
-					Clear completed
-				</button>
+		</span> 
+		<ul class="filters">
+		<li><a href="#/all" class="selected">All</a></li> 
+		<li><a href="#/active" class="">Active</a></li> 
+		<li><a href="#/completed" class="">Completed</a></li>
+		</ul> 
+		<form action="/process-task" method="POST">{% csrf_token %}
+			<input type="hidden" name="cmd" value="clear">
+			<button id="clear-completed" class="clear-completed" style="" type="submit">
+				Clear completed
+			</button>
+		</form>
+
 	</footer>
 </section>
 

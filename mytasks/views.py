@@ -28,10 +28,22 @@ def process_task(request):
             task.status = not task.status
             task.save()
         return HttpResponseRedirect('/')
-
+ 
     if cmd == "delete":
-        print("DELETE")
         task = Task(pk=request.POST['task_id'])
-        print("DELETE")
         task.delete()
+        return HttpResponseRedirect('/')
+
+    #clear completed button
+    if cmd == "clear":
+        all_tasks = Task.objects.all() 
+        for task in all_tasks:
+            if task.status == True:
+                task.delete()
+        return HttpResponseRedirect('/')
+
+    if cmd == "check":
+        task = Task.objects.get(pk=request.POST['task_id'])
+        task.status = not task.status
+        task.save()
         return HttpResponseRedirect('/')
