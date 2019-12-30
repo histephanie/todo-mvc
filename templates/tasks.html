@@ -25,7 +25,6 @@
 					<input type="hidden" name="cmd" value="check">
 					<button id="check" class="toggle" type="submit"></button>
 					<label>{{ task.title }}</label> 
-					
 				</form>
 					<form action="/process-task" method="POST">{% csrf_token %}
 						<input type="hidden" name="task_id" value="{{ task.id }}">

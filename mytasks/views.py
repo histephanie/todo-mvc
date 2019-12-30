@@ -29,12 +29,13 @@ def process_task(request):
             task.save()
         return HttpResponseRedirect('/')
  
+    #the "x" next to each task
     if cmd == "delete":
         task = Task(pk=request.POST['task_id'])
         task.delete()
         return HttpResponseRedirect('/')
 
-    #clear completed button
+    #clear completed button bottom right
     if cmd == "clear":
         all_tasks = Task.objects.all() 
         for task in all_tasks:
@@ -42,8 +43,35 @@ def process_task(request):
                 task.delete()
         return HttpResponseRedirect('/')
 
+    #the check mark next to each task
     if cmd == "check":
         task = Task.objects.get(pk=request.POST['task_id'])
         task.status = not task.status
         task.save()
         return HttpResponseRedirect('/')
+
+    # #all button at the bottom
+    # if cmd == "all":
+    #     all_tasks = Task.objects.all()
+    #     tasks =[]
+    #     for task in all_tasks:
+    #         tasks.append()
+    # return HttpResponseRedirect('/')
+
+    # # active button at the bottom
+    # if cmd == "active":
+    #     all_tasks = Task.objects.all()
+    #     tasks =[]
+    #     for task in all_tasks:
+    #         if task.status == False:
+    #             tasks.append()
+    # return HttpResponseRedirect('/')
+        
+    # # completed button at the bottom
+    # if cmd == "completed":
+    #     all_tasks = Task.objects.all()
+    #     tasks =[]
+    #     for task in all_tasks:
+    #         if task.status == True:
+    #             tasks.append()
+    # return HttpResponseRedirect('/')
