@@ -5,7 +5,12 @@ from .models import Task
 # Create your views here.
 def task_view(request):
     all_tasks = Task.objects.all() 
-    return render(request,'tasks.html', {'tasks':all_tasks})
+    active_count = 0
+    for task in all_tasks:
+        if task.status == False:
+            active_count += 1
+    filter_type = "all"
+    return render(request,'tasks.html', {'tasks':all_tasks, 'filter_type':filter_type, 'active_count':active_count})
 
 
 def process_task(request):
@@ -50,28 +55,13 @@ def process_task(request):
         task.save()
         return HttpResponseRedirect('/')
 
-    # #all button at the bottom
-    # if cmd == "all":
-    #     all_tasks = Task.objects.all()
-    #     tasks =[]
-    #     for task in all_tasks:
-    #         tasks.append()
-    # return HttpResponseRedirect('/')
+def active_tasks(request):
+    active_tasks = Task.objects.filter(status=False)
+    filter_type = "active"
+    return render(request,'tasks.html', {'tasks':active_tasks, 'filter_type':filter_type})
 
-    # # active button at the bottom
-    # if cmd == "active":
-    #     all_tasks = Task.objects.all()
-    #     tasks =[]
-    #     for task in all_tasks:
-    #         if task.status == False:
-    #             tasks.append()
-    # return HttpResponseRedirect('/')
-        
-    # # completed button at the bottom
-    # if cmd == "completed":
-    #     all_tasks = Task.objects.all()
-    #     tasks =[]
-    #     for task in all_tasks:
-    #         if task.status == True:
-    #             tasks.append()
-    # return HttpResponseRedirect('/')
+
+def completed_tasks(request):
+    completed_tasks = Task.objects.filter(status=True)
+    filter_type = "completed"
+    return render(request,'tasks.html', {'tasks':completed_tasks, 'filter_type':filter_type})
