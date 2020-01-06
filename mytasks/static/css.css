@@ -245,6 +245,33 @@ body {
 	display: block;
 }
 
+.todo-list li .edit-link {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0px;
+	bottom: -42px;
+	width: 40px;
+	height: 40px;
+	margin: auto 0;
+	font-size: 18px;
+	color: #cc9a9a;
+	margin-bottom: 11px;
+	transition: color 0.2s ease-out;
+}
+
+.todo-list li .edit-link:hover {
+	color: #af5b5e;
+}
+
+.todo-list li .edit-link:after {
+	content: '🖋️';
+}
+
+.todo-list li:hover .edit-link {
+	display: block;
+}
+
 .todo-list li .edit {
 	display: none;
 }

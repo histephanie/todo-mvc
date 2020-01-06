@@ -26,11 +26,12 @@
 					<button id="check" class="toggle" type="submit"></button>
 					<label>{{ task.title }}</label> 
 				</form>
-					<form action="/process-task" method="POST">{% csrf_token %}
-						<input type="hidden" name="task_id" value="{{ task.id }}">
-						<input type="hidden" name="cmd" value="delete">
-						<button class="destroy"></button>
-					</form>
+				<form action="/process-task" method="POST">{% csrf_token %}
+					<input type="hidden" name="task_id" value="{{ task.id }}">
+					<input type="hidden" name="cmd" value="delete">
+					<button class="destroy"></button>
+					<a href="{% url 'edit' pk=task.pk %}" class="edit-link"></a>	
+				</form>
 				</div> 
 				<input type="text" class="edit">
 			</li>

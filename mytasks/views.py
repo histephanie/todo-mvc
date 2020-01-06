@@ -65,3 +65,17 @@ def completed_tasks(request):
     completed_tasks = Task.objects.filter(status=True)
     filter_type = "completed"
     return render(request,'tasks.html', {'tasks':completed_tasks, 'filter_type':filter_type})
+
+# pk is a parameter so that the func knows wich task is being edited, 
+# the value for the pk comes from urls.py 
+# then the tasks.html link also has the pk that it takes from the current task
+def edit_task(request, pk):
+    if request.method == 'GET':
+        task = Task.objects.get(pk=pk)
+        return render(request, 'edit.html', {'task':task})
+        
+    elif request.method == 'POST':
+        task = Task.objects.get(pk=pk)
+        task.title = request.POST['title']
+        task.save()
+        return HttpResponseRedirect('/')
